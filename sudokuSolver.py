@@ -1,8 +1,5 @@
 import random
 
-N = 9  #Board size
-M = 3  #Sub-grid size
-
 def isValid(board, row, col, num):
     startRow, startCol = M * (row // M), M * (col // M)
     for i in range(N):
@@ -37,14 +34,14 @@ def findEmptyCell(board):
 def printBoard(board):
     for i in range(N):
         if i % M == 0 and i != 0:
-            print("-"*21)  # Print horizontal separator
+            print("-"*(2*N + M - 1))
         for j in range(N):
             if j % M == 0 and j != 0:
-                print("|", end=" ")  # Print vertical separator
+                print("|", end=" ")
             print(board[i][j], end=" ")
         print()
 
-def generateSudoku(difficulty=0.5):
+def generateSudoku(difficulty):
     board = [[0]*N for _ in range(N)]
     solve(board)
 
@@ -60,8 +57,28 @@ def generateSudoku(difficulty=0.5):
 
     return board
 
+def getUserInput():
+    while True:
+        try:
+            N = int(input("Enter board size (e.g., 9 for a 9x9 board): "))
+            M = int(N**0.5)
+            if M * M != N:
+                print("Board size must be a perfect square (e.g., 4, 9, 16,...).")
+                continue
+            
+            difficulty = float(input("Enter difficulty (0 to 1, where 1 is hardest): "))
+            if not (0 <= difficulty <= 1):
+                print("Difficulty must be between 0 and 1.")
+                continue
+
+            return N, M, difficulty
+        except ValueError:
+            print("Invalid input. Please try again.")
+
 if __name__ == '__main__':
-    board = generateSudoku()
+    N, M, difficulty = getUserInput()
+    
+    board = generateSudoku(difficulty)
 
     print("Initial unsolved board:")
     printBoard(board)
