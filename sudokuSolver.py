@@ -41,15 +41,27 @@ def findEmptyCell(board):
 
 def printBoard(board):
     for i in range(N):
+        # Draw horizontal line for boxes
         if i % M == 0 and i != 0:
-            print("-"*(2*N + M - 1))
-
+            for j in range(N):
+                print("─" * 3, end="")
+                if j % M == M - 1 and j != N - 1:
+                    print("┼", end="")
+            print()
+            
         for j in range(N):
+            # Draw vertical line for boxes
             if j % M == 0 and j != 0:
-                print("|", end=" ")
-            print(board[i][j], end=" ")
-
+                print("│", end="")
+            
+            # Print board value or space if zero, centering it within the cell
+            if board[i][j] != 0:
+                print(f" {board[i][j]} ", end="")
+            else:
+                print("   ", end="")
+            
         print()
+
 
 def generateSudoku(difficulty):
     board = [[0]*N for _ in range(N)]
