@@ -106,6 +106,28 @@ def getUserInput():
         except ValueError:
             print("Invalid input. Please try again.")
 
+def userMove(board):
+    while True:
+        try:
+            row = int(input(f"Enter row (0 to {N-1}): "))
+            col = int(input(f"Enter column (0 to {N-1}): "))
+            num = int(input(f"Enter number (1 to {N}): "))
+            
+            if 0 <= row < N and 0 <= col < N and 1 <= num <= N and board[row][col] == 0:
+                if isValid(num, row, col):
+                    placeNumber(board, num, row, col)
+                    printBoard(board)
+                    if findEmptyCell(board) is None:
+                        print("Congratulations! You have solved the Sudoku!")
+                        return
+                else:
+                    print("Invalid move. Try again.")
+            else:
+                print("Out of range or cell already filled. Try again.")
+        
+        except ValueError:
+            print("Invalid input. Please enter numeric values only.")
+
 if __name__ == '__main__':
     N, M, difficulty = getUserInput()
     rows = [set() for _ in range(N)]
@@ -116,6 +138,12 @@ if __name__ == '__main__':
     print("Initial unsolved board:")
     printBoard(board)
     print("\n\n")
-    solve(board)
-    print("Solved board:")
-    printBoard(board)
+    
+    choice = input("Would you like to solve the puzzle yourself? (yes/no): ").strip().lower()
+
+    if choice == "yes":
+        userMove(board)
+
+    else:
+        solve(board)
+        printBoard(board)
