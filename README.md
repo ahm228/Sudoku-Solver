@@ -1,56 +1,89 @@
-# Sudoku-Solver
-
-Introduction
-
-This program provides an implementation of a Sudoku puzzle generator and solver. Users can specify the size of the board, with common sizes being 4x4, 9x9, 16x16, and so on. The board size must be a perfect square. In addition, users can also set the difficulty level of the generated puzzle. The difficulty determines the number of initial filled cells in the puzzle.
+This program provides functionalities for generating Sudoku puzzles of varying difficulties and solving them. It uses a backtracking algorithm to ensure valid puzzle generation and solution. Here's an overview of how the code works:
 Features
 
-    Board Size Customization: Users can select the size of the Sudoku board.
-    Difficulty Levels: Allows users to set the difficulty of the Sudoku puzzles.
-    Sudoku Generator: Generates a random Sudoku puzzle based on the specified size and difficulty.
-    Sudoku Solver: Solves any given valid Sudoku puzzle.
+    Dynamic Board Sizes: This program supports Sudoku boards of different sizes, provided they are perfect squares (e.g., 4x4, 9x9, 16x16).
+    Difficulty Levels: Users can specify the difficulty of the generated Sudoku puzzle. The difficulty level determines the number of filled cells removed from the completed board.
+    Manual Puzzle Solving: Users have the option to solve the generated puzzle manually.
+    Auto Solve: If a user chooses not to solve the puzzle manually, the program will solve it automatically using a backtracking algorithm.
 
-Functions
-isValid(board, row, col, num)
+Core Functions
 
-    Parameters:
-        board: Current state of the Sudoku board.
-        row, col: Position on the board to check.
-        num: Number to validate.
-    Return: Returns True if the number num can be placed at the given row and col without violating Sudoku rules, otherwise False.
+    isValid(num, row, col): Checks if a number can be placed in a specific cell without violating Sudoku rules.
+    placeNumber(board, num, row, col): Places a number in a cell and updates row, column, and box trackers.
+    removeNumber(board, row, col): Removes a number from a cell and updates row, column, and box trackers.
+    solve(board): Recursively tries to solve the board using the backtracking algorithm.
+    findEmptyCell(board): Finds the first empty cell on the board.
+    printBoard(board): Prints the Sudoku board in a user-friendly format.
+    generateSudoku(difficulty): Generates a Sudoku puzzle based on a specified difficulty.
+    getUserInput(): Gets user input for board size and difficulty level.
+    userMove(board): Allows the user to make moves while solving the puzzle manually.
 
-solve(board)
+Usage
 
-    Parameter:
-        board: Current state of the Sudoku board.
-    Return: Returns True if the Sudoku puzzle can be solved, otherwise False.
+To use the program:
 
-findEmptyCell(board)
+    Run the code.
+    Enter the desired board size (e.g., 9 for a 9x9 board).
+    Specify the difficulty level (0 to 1, where 1 is the hardest).
+    The program will display the generated Sudoku puzzle.
+    Choose whether you'd like to solve the puzzle manually or let the program solve it.
 
-    Parameter:
-        board: Current state of the Sudoku board.
-    Return: Returns the coordinates (row, col) of the first empty cell (with value 0) found, or None if no empty cells are found.
+Example
+    Enter board size (e.g., 9 for a 9x9 board): 9
+    Enter difficulty (0 to 1, where 1 is hardest): 0.5
+    Initial unsolved board:
+    ...
+    Would you like to solve the puzzle yourself? (yes/no): yes
+    ...
 
-printBoard(board)
+Sudoku Generator and Solver
 
-    Parameter:
-        board: Current state of the Sudoku board.
-    Action: Prints the board in a human-readable format.
+This program provides functionalities for generating Sudoku puzzles of varying difficulties and solving them. It uses a backtracking algorithm to ensure valid puzzle generation and solution. Here's an overview of how the code works:
+Features
 
-generateSudoku(difficulty=0.5)
+    Dynamic Board Sizes: This program supports Sudoku boards of different sizes, provided they are perfect squares (e.g., 4x4, 9x9, 16x16).
+    Difficulty Levels: Users can specify the difficulty of the generated Sudoku puzzle. The difficulty level determines the number of filled cells removed from the completed board.
+    Manual Puzzle Solving: Users have the option to solve the generated puzzle manually.
+    Auto Solve: If a user chooses not to solve the puzzle manually, the program will solve it automatically using a backtracking algorithm.
 
-    Parameter:
-        difficulty: Proportion of cells to be emptied. Value between 0 and 1, where 1 means all cells will be emptied.
-    Return: Returns a generated Sudoku board based on the given difficulty.
+Core Functions
 
-getUserInput()
+    isValid(num, row, col): Checks if a number can be placed in a specific cell without violating Sudoku rules.
+    placeNumber(board, num, row, col): Places a number in a cell and updates row, column, and box trackers.
+    removeNumber(board, row, col): Removes a number from a cell and updates row, column, and box trackers.
+    solve(board): Recursively tries to solve the board using the backtracking algorithm.
+    findEmptyCell(board): Finds the first empty cell on the board.
+    printBoard(board): Prints the Sudoku board in a user-friendly format.
+    generateSudoku(difficulty): Generates a Sudoku puzzle based on a specified difficulty.
+    getUserInput(): Gets user input for board size and difficulty level.
+    userMove(board): Allows the user to make moves while solving the puzzle manually.
 
-    Return: Gets board size and difficulty from the user and returns these values as (N, M, difficulty).
+Usage
 
-How to Use
+To use the program:
 
-    Run the program.
-    Input the desired board size (e.g., 9 for a 9x9 board). Note: The size must be a perfect square.
-    Input the desired difficulty level (between 0 and 1). The closer to 1, the harder the puzzle.
-    The program will display an initial unsolved board.
-    The program will then solve the puzzle and display the solution.
+    Run the code.
+    Enter the desired board size (e.g., 9 for a 9x9 board).
+    Specify the difficulty level (0 to 1, where 1 is the hardest).
+    The program will display the generated Sudoku puzzle.
+    Choose whether you'd like to solve the puzzle manually or let the program solve it.
+
+Example
+
+vbnet
+
+Enter board size (e.g., 9 for a 9x9 board): 9
+Enter difficulty (0 to 1, where 1 is hardest): 0.5
+Initial unsolved board:
+...
+Would you like to solve the puzzle yourself? (yes/no): yes
+...
+
+Note
+
+    This Sudoku generator uses randomization for both the puzzle generation and solution processes. As a result, the puzzles and their solutions can differ each time you run the program.
+    The difficulty level determines how many cells are removed from a fully solved board to create the puzzle. A difficulty of 1 will be extremely challenging, while a difficulty of 0 will provide a completely filled board.
+
+Dependencies
+
+This program relies on Python's built-in random module. Ensure that you have Python 3.x installed to run this code.
