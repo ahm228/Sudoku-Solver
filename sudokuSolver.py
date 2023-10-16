@@ -1,4 +1,5 @@
 import random
+import time
 
 def isValid(num, row, col):
     boxIndex = (row // M) * M + col // M
@@ -118,6 +119,7 @@ def userMove(board):
                     placeNumber(board, num, row, col)
                     printBoard(board)
                     if findEmptyCell(board) is None:
+                        print(f"Time taken to solve: {endTime - startTime:.2f} seconds")
                         print("Congratulations! You have solved the Sudoku!")
                         return
                 else:
@@ -133,6 +135,7 @@ if __name__ == '__main__':
     rows = [set() for _ in range(N)]
     cols = [set() for _ in range(N)]
     boxes = [set() for _ in range(N)]
+
     board = generateSudoku(difficulty)
 
     print("Initial unsolved board:")
@@ -142,8 +145,13 @@ if __name__ == '__main__':
     choice = input("Would you like to solve the puzzle yourself? (yes/no): ").strip().lower()
 
     if choice == "yes":
+        startTime = time.time()
         userMove(board)
 
     else:
+        startTime = time.time()
         solve(board)
+        endTime = time.time()
+
+        print(f"Time taken to solve: {endTime - startTime:.5f} seconds")
         printBoard(board)
