@@ -77,6 +77,8 @@ def findConflicts(board):
                             conflicts.add((i, j))
                             conflicts.add((startRow + x, startCol + y))
 
+    return conflicts
+
 def printBoard(board):
     conflicts = findConflicts(board)
 
@@ -95,7 +97,7 @@ def printBoard(board):
 
             if board[i][j] != 0:
                 if (i, j) in conflicts:
-                    print(f" \033[91m{board[i][j]}\033[0m ", end="")  # Using ANSI escape codes for red color
+                    print(f" \033[91m{board[i][j]}\033[0m ", end="")  #Using ANSI escape codes for red color
                 else:
                     print(f" {board[i][j]} ", end="")
 
