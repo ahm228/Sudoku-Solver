@@ -51,7 +51,35 @@ def findEmptyCell(board):
             
     return None
 
+def findConflicts(board):
+    conflicts = set()
+
+    for i in range(N):
+        for j in range(N):
+            num = board[i][j]
+
+            if num !=0:
+                for x in range(N):
+                    if x !=j  and board[i][x] == num:
+                        conflicts.add((i, j))
+                        conflicts.add((i, x))
+
+                for y in range(N):
+                    if y != i and board[y][j] == num:
+                        conflicts.add((i, j))
+                        conflicts.add((y, j))
+
+                startRow, startCol = i - i % M, j - j % M
+
+                for x in range(M):
+                    for y in range(M):
+                        if (startRow + x, startCol + y) != (i, j) and board[startRow + x][startCol + y] == num:
+                            conflicts.add((i, j))
+                            conflicts.add((startRow + x, startCol + y))
+
 def printBoard(board):
+    conflicts = findConflicts(board)
+
     for i in range(N):
         if i % M == 0 and i != 0:
             for j in range(N):
@@ -64,8 +92,13 @@ def printBoard(board):
         for j in range(N):
             if j % M == 0 and j != 0:
                 print("│", end="")
+
             if board[i][j] != 0:
-                print(f" {board[i][j]} ", end="")
+                if (i, j) in conflicts:
+                    print(f" \033[91m{board[i][j]}\033[0m ", end="")  # Using ANSI escape codes for red color
+                else:
+                    print(f" {board[i][j]} ", end="")
+
             else:
                 print("   ", end="")
 
