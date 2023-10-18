@@ -142,28 +142,36 @@ def getUserInput():
         except ValueError:
             print("Invalid input. Please try again.")
 
-def userMove(board):
+def getUserMove():
     while True:
         try:
             row = int(input(f"Enter row (0 to {N-1}): "))
             col = int(input(f"Enter column (0 to {N-1}): "))
             num = int(input(f"Enter number (1 to {N}): "))
-            
-            if 0 <= row < N and 0 <= col < N and 1 <= num <= N and board[row][col] == 0:
-                if isValid(num, row, col):
-                    placeNumber(board, num, row, col)
-                    printBoard(board)
-                    if findEmptyCell(board) is None:
-                        print(f"Time taken to solve: {endTime - startTime:.2f} seconds")
-                        print("Congratulations! You have solved the Sudoku!")
-                        return
-                else:
-                    print("Invalid move. Try again.")
+
+            if validateMove(row, col, num, board):
+                return row, col, num
             else:
-                print("Out of range or cell already filled. Try again.")
-        
+                print("Invalid move. Try again.")
+
         except ValueError:
             print("Invalid input. Please enter numeric values only.")
+
+def validateMove(row, col, num, board):
+    if 0 <= row < N and 0 <= col < N and 1 <= num <= N and board[row][col] == 0:
+        if isValid(num, row, col):
+            return True
+        return False
+    
+def userPlay(board):
+    while True:
+        row, col, num = getUserMove()
+        placeNumber(board, num, row, col)
+        printBoard(board)
+        if findEmptyCell is None:
+            print(f"Time taken to solve: {endTime - startTime:.2f} seconds")
+            print("Congratulations! You've solved the sudoku!")
+            return
 
 if __name__ == '__main__':
     N, M, difficulty = getUserInput()
@@ -181,7 +189,7 @@ if __name__ == '__main__':
 
     if choice == "yes":
         startTime = time.time()
-        userMove(board)
+        userPlay(board)
 
     else:
         startTime = time.time()
