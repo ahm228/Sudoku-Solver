@@ -168,7 +168,7 @@ def userPlay(board):
         row, col, num = getUserMove()
         placeNumber(board, num, row, col)
         printBoard(board)
-        if findEmptyCell is None:
+        if findEmptyCell() is None:
             print(f"Time taken to solve: {endTime - startTime:.2f} seconds")
             print("Congratulations! You've solved the sudoku!")
             return
