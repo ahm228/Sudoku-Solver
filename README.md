@@ -1,89 +1,46 @@
-This program provides functionalities for generating Sudoku puzzles of varying difficulties and solving them. It uses a backtracking algorithm to ensure valid puzzle generation and solution. Here's an overview of how the code works:
+This script provides a simple Sudoku game where the user can generate a Sudoku puzzle with their desired board size and difficulty level. Additionally, users can either solve the Sudoku themselves or let the script solve it for them.
+Requirements
+
+    Python 3.x
+
 Features
 
-    Dynamic Board Sizes: This program supports Sudoku boards of different sizes, provided they are perfect squares (e.g., 4x4, 9x9, 16x16).
-    Difficulty Levels: Users can specify the difficulty of the generated Sudoku puzzle. The difficulty level determines the number of filled cells removed from the completed board.
-    Manual Puzzle Solving: Users have the option to solve the generated puzzle manually.
-    Auto Solve: If a user chooses not to solve the puzzle manually, the program will solve it automatically using a backtracking algorithm.
+    Generate Sudoku puzzles of various sizes (e.g., 4x4, 9x9, 16x16, etc.)
+    Specify difficulty levels (ranging from 0 to 1, with 1 being the hardest)
+    Ability for the user to solve the puzzle interactively
+    Automated Sudoku solver
+    Visual representation of the Sudoku board, with conflicts highlighted in red
 
-Core Functions
+How to Run
 
-    isValid(num, row, col): Checks if a number can be placed in a specific cell without violating Sudoku rules.
-    placeNumber(board, num, row, col): Places a number in a cell and updates row, column, and box trackers.
-    removeNumber(board, row, col): Removes a number from a cell and updates row, column, and box trackers.
-    solve(board): Recursively tries to solve the board using the backtracking algorithm.
-    findEmptyCell(board): Finds the first empty cell on the board.
-    printBoard(board): Prints the Sudoku board in a user-friendly format.
-    generateSudoku(difficulty): Generates a Sudoku puzzle based on a specified difficulty.
-    getUserInput(): Gets user input for board size and difficulty level.
-    userMove(board): Allows the user to make moves while solving the puzzle manually.
+    Ensure you have Python 3.x installed.
+    Run the script by executing the following command:
+        python sudokusolver.py
 
-Usage
+Instructions
 
-To use the program:
+    When prompted, enter the desired board size (the input must be a perfect square number like 4, 9, 16, etc.).
+    Specify the desired difficulty level (from 0 to 1). The higher the difficulty, the fewer clues you'll receive.
+    An initial unsolved board will be displayed.
+    Choose whether you want to solve the puzzle yourself or let the script do it for you.
+        If you choose to solve it yourself, input your moves as prompted and view the updated board after each move. The game will notify you once you've successfully solved the puzzle.
 
-    Run the code.
-    Enter the desired board size (e.g., 9 for a 9x9 board).
-    Specify the difficulty level (0 to 1, where 1 is the hardest).
-    The program will display the generated Sudoku puzzle.
-    Choose whether you'd like to solve the puzzle manually or let the program solve it.
+Key Functions
 
-Example
-    Enter board size (e.g., 9 for a 9x9 board): 9
-    Enter difficulty (0 to 1, where 1 is hardest): 0.5
-    Initial unsolved board:
-    ...
-    Would you like to solve the puzzle yourself? (yes/no): yes
-    ...
+    isValid(num, row, col): Checks if a number is valid for placement in a specific cell.
+    placeNumber(board, num, row, col): Places a number in a specific cell.
+    removeNumber(board, row, col): Removes a number from a specific cell.
+    solve(board): Recursive function that solves the Sudoku puzzle.
+    findEmptyCell(board): Finds an empty cell in the board.
+    findConflicts(board): Identifies conflicting cells in the board.
+    printBoard(board): Prints the Sudoku board with conflicts highlighted in red.
+    generateSudoku(difficulty): Generates a Sudoku puzzle based on the specified difficulty.
+    getUserInput(): Gets the board size and difficulty level from the user.
+    getUserMove(): Gets the next move from the user.
+    validateMove(row, col, num, board): Validates a user's move.
+    userPlay(board): Allows the user to solve the Sudoku interactively.
 
-Sudoku Generator and Solver
+Notes
 
-This program provides functionalities for generating Sudoku puzzles of varying difficulties and solving them. It uses a backtracking algorithm to ensure valid puzzle generation and solution. Here's an overview of how the code works:
-Features
-
-    Dynamic Board Sizes: This program supports Sudoku boards of different sizes, provided they are perfect squares (e.g., 4x4, 9x9, 16x16).
-    Difficulty Levels: Users can specify the difficulty of the generated Sudoku puzzle. The difficulty level determines the number of filled cells removed from the completed board.
-    Manual Puzzle Solving: Users have the option to solve the generated puzzle manually.
-    Auto Solve: If a user chooses not to solve the puzzle manually, the program will solve it automatically using a backtracking algorithm.
-
-Core Functions
-
-    isValid(num, row, col): Checks if a number can be placed in a specific cell without violating Sudoku rules.
-    placeNumber(board, num, row, col): Places a number in a cell and updates row, column, and box trackers.
-    removeNumber(board, row, col): Removes a number from a cell and updates row, column, and box trackers.
-    solve(board): Recursively tries to solve the board using the backtracking algorithm.
-    findEmptyCell(board): Finds the first empty cell on the board.
-    printBoard(board): Prints the Sudoku board in a user-friendly format.
-    generateSudoku(difficulty): Generates a Sudoku puzzle based on a specified difficulty.
-    getUserInput(): Gets user input for board size and difficulty level.
-    userMove(board): Allows the user to make moves while solving the puzzle manually.
-
-Usage
-
-To use the program:
-
-    Run the code.
-    Enter the desired board size (e.g., 9 for a 9x9 board).
-    Specify the difficulty level (0 to 1, where 1 is the hardest).
-    The program will display the generated Sudoku puzzle.
-    Choose whether you'd like to solve the puzzle manually or let the program solve it.
-
-Example
-
-vbnet
-
-Enter board size (e.g., 9 for a 9x9 board): 9
-Enter difficulty (0 to 1, where 1 is hardest): 0.5
-Initial unsolved board:
-...
-Would you like to solve the puzzle yourself? (yes/no): yes
-...
-
-Note
-
-    This Sudoku generator uses randomization for both the puzzle generation and solution processes. As a result, the puzzles and their solutions can differ each time you run the program.
-    The difficulty level determines how many cells are removed from a fully solved board to create the puzzle. A difficulty of 1 will be extremely challenging, while a difficulty of 0 will provide a completely filled board.
-
-Dependencies
-
-This program relies on Python's built-in random module. Ensure that you have Python 3.x installed to run this code.
+    This game uses backtracking to solve the Sudoku puzzle.
+    The game uses ANSI escape codes to highlight conflicts in red, which might not be visible on all terminals.
