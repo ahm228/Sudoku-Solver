@@ -142,44 +142,68 @@ def getUserInput():
         except ValueError:
             print("Invalid input. Please try again.")
 
-def getUserMove():
+def isInitialCell(row, col, initialBoard):
+    return initialBoard[row][col] != 0
+
+def getUserMove(initialBoard):
     while True:
         try:
             row = int(input(f"Enter row (0 to {N-1}): "))
             col = int(input(f"Enter column (0 to {N-1}): "))
-            num = int(input(f"Enter number (1 to {N}): "))
-
-            if validateMove(row, col, num, board):
-                return row, col, num
+            action = input("Enter 'place' to place a number or 'remove' to remove a number: ").strip().lower()
+            
+            if action == "remove":
+                if not isInitialCell(row, col, initialBoard) and board[row][col] != 0:
+                    return row, col, 0
+                else:
+                    print("Can't remove from this cell. Try again.")
+                    continue
+            
+            elif action == "place":
+                num = int(input(f"Enter number (1 to {N}): "))
+                if validateMove(row, col, num, initialBoard):
+                    return row, col, num
+                else:
+                    print("Invalid move. Try again.")
+                    
             else:
-                print("Invalid move. Try again.")
-
+                print("Invalid action. Choose 'place' or 'remove'.")
+            
         except ValueError:
             print("Invalid input. Please enter numeric values only.")
 
-def validateMove(row, col, num, board):
-    if 0 <= row < N and 0 <= col < N and 1 <= num <= N and board[row][col] == 0:
-        if isValid(num, row, col):
+def validateMove(row, col, num, initialBoard):
+    if 0 <= row < N and 0 <= col < N and (1 <= num <= N or num == 0) and not isInitialCell(row, col, initialBoard):
+        if num == 0 or isValid(num, row, col):
             return True
-        return False
+    return False
     
-def userPlay(board):
+def userPlay(board, initialBoard):
     while True:
-        row, col, num = getUserMove()
-        placeNumber(board, num, row, col)
+        row, col, num = getUserMove(initialBoard)
+
+        if num == 0:
+            removeNumber(board, row, col)
+
+        else:
+            placeNumber(board, num, row, col)
+
         printBoard(board)
-        if findEmptyCell() is None:
+        if findEmptyCell(board) is None:
+            endTime = time.time()
             print(f"Time taken to solve: {endTime - startTime:.2f} seconds")
             print("Congratulations! You've solved the sudoku!")
             return
+
 
 if __name__ == '__main__':
     N, M, difficulty = getUserInput()
     rows = [set() for _ in range(N)]
     cols = [set() for _ in range(N)]
     boxes = [set() for _ in range(N)]
-
     board = generateSudoku(difficulty)
+    
+    initialBoard = [row.copy() for row in board]
 
     print("Initial unsolved board:")
     printBoard(board)
@@ -189,7 +213,7 @@ if __name__ == '__main__':
 
     if choice == "yes":
         startTime = time.time()
-        userPlay(board)
+        userPlay(board, initialBoard)
 
     else:
         startTime = time.time()
