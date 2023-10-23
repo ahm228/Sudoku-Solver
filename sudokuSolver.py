@@ -165,6 +165,7 @@ def getUserMove(initialBoard):
                     return row, col, num
                 else:
                     print("Invalid move. Try again.")
+                    
             else:
                 print("Invalid action. Choose 'place' or 'remove'.")
             
@@ -180,10 +181,13 @@ def validateMove(row, col, num, initialBoard):
 def userPlay(board, initialBoard):
     while True:
         row, col, num = getUserMove(initialBoard)
+
         if num == 0:
             removeNumber(board, row, col)
+
         else:
             placeNumber(board, num, row, col)
+
         printBoard(board)
         if findEmptyCell(board) is None:
             endTime = time.time()
