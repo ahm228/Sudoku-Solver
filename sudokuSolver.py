@@ -177,15 +177,20 @@ def validateMove(row, col, num, initialBoard):
             return True
     return False
     
-def userPlay(board):
+def userPlay(board, initialBoard):
     while True:
-        row, col, num = getUserMove()
-        placeNumber(board, num, row, col)
+        row, col, num = getUserMove(initialBoard)
+        if num == 0:
+            removeNumber(board, row, col)
+        else:
+            placeNumber(board, num, row, col)
         printBoard(board)
-        if findEmptyCell() is None:
+        if findEmptyCell(board) is None:
+            endTime = time.time()
             print(f"Time taken to solve: {endTime - startTime:.2f} seconds")
             print("Congratulations! You've solved the sudoku!")
             return
+
 
 if __name__ == '__main__':
     N, M, difficulty = getUserInput()
@@ -204,7 +209,7 @@ if __name__ == '__main__':
 
     if choice == "yes":
         startTime = time.time()
-        userPlay(board)
+        userPlay(board, initialBoard)
 
     else:
         startTime = time.time()
